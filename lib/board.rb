@@ -3,6 +3,7 @@ require './lib/cell.rb'
 require 'pry'
 
 class Board
+  attr_reader :cells
 
   def initialize
     @cells = {
@@ -25,6 +26,8 @@ class Board
    }
   end
 
-
+  def valid_coordinate?(coordinate)
+    @cells.keys.include?(coordinate)
+  end
 
 end
