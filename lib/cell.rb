@@ -17,4 +17,17 @@ attr_reader :coordinate, :ship
   def place_ship(ship_type)
     @ship = ship_type
   end
+
+  def fired_upon?
+    @ship != nil
+  end
+
+  def fire_upon
+    @ship
+  end
+
+  #def render
+# which returns a String representation
+#of the Cell for when we need to print the board.
+  #end
 end
