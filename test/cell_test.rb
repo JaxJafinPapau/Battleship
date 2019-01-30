@@ -33,7 +33,7 @@ class CellTest < Minitest::Test
 
   def test_did_it_hit
 
-    assert_equal false, @cell.fired_upon?
+    assert_equal false, @cell.fired_upon
   end
 
   def test_fire_on_ship
@@ -42,7 +42,19 @@ class CellTest < Minitest::Test
   end
 
   def test_did_health_decrease
-
+    @cell.place_ship(@cruiser)
+    @cruiser.hit
     assert_equal 2, @cell.ship.health
   end
+
+  def test_has_cell_been_fired_on
+    cell_1 = Cell.new("B4")
+
+    assert_equal ".", cell_1.render
+  end
+
+  #def test_fire_upon
+    #cell_1 = Cell.new("B4")
+
+    #assert_equal , 
 end

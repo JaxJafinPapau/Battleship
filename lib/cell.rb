@@ -1,13 +1,13 @@
-#require 'pry'; binding.pry
+require 'pry'
 require './lib/ship'
 
 class Cell
-attr_reader :coordinate, :ship
-# @coordinate = [l, n]
+attr_reader :coordinate, :ship, :fired_upon
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired_upon = false
   end
 
   def empty?
@@ -18,16 +18,22 @@ attr_reader :coordinate, :ship
     @ship = ship_type
   end
 
-  def fired_upon?
-    @ship != nil
-  end
-
   def fire_upon
-    @ship
+    @fired_upon == true
+    if empty? == false
+    end
   end
 
-  #def render
-# which returns a String representation
-#of the Cell for when we need to print the board.
-  #end
+  def render
+    if empty? && fired_upon
+      return "M"
+    elsif empty? && !fired_upon
+      return "."
+    else !empty? && fired_upon
+      return "H"
+      if @ship.health == 0
+        return "X"
+      end
+    end
+  end
 end
