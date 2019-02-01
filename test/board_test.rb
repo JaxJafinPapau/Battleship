@@ -46,7 +46,13 @@ class BoardTest < Minitest::Test
 
   def test_does_ship_paired_coordinates_give_proper_pairs?
     assert_equal [["A1", "A2"], ["A2", "A3"]],
-    @board.ship_paired_coordinates
+    @board.ship_paired_coordinates(@cruiser, ["A1", "A2", "A3"])
+  end
+
+  def test_does_ship_coordinate_letters_give_letters
+
+    assert_equal ["A"], @board.ship_coordinate_letters(@cruiser, ["A1", "A2", "A3"])
+    assert_equal ["A", "B", "C"], @board.ship_coordinate_letters(@cruiser, ["A1", "B1", "C1"])
   end
 
   def test_does_board_validate_horizontal_placement
