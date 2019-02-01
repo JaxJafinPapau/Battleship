@@ -31,10 +31,11 @@ class Board
   end
 
   def valid_placement?(ship, ship_coordinates)
-    # @cells.keys.include?(ship_coordinates)
-    # coordinate_list = @cells.keys
+    (ship_coordinate_letters(ship, ship_coordinates).count == 1 &&
+      neighbor_comparison(ship, ship_coordinates)) ||
+    (ship_coordinate_numbers(ship, ship_coordinates).count == 1 &&
+      neighbor_comparison(ship, ship_coordinates))
   end
-
 
   def columns
     columns = @cells.keys.sort do |coord_a, coord_b|
@@ -63,6 +64,36 @@ class Board
     end
     return row_neighbors
   end
+
+  def ship_paired_coordinates(ship, ship_coordinates)
+    ship_paired_coordinates = []
+    ship_coordinates.each_cons(2) do |coord|
+      ship_paired_coordinates << coord
+    end
+    return ship_paired_coordinates
+  end
+
+  def ship_coordinate_letters(ship, ship_coordinates)
+    ship_coordinate_letters = ship_coordinates.map do |coord|
+        coord[0].split('')
+      end
+    ship_coordinate_letters.flatten.uniq
+  end
+
+  def ship_coordinate_numbers(ship, ship_coordinates)
+    ship_coordinate_numbers = ship_coordinates.map do |coord|
+      coord[1].split('')
+    end
+    ship_coordinate_numbers.flatten.uniq
+  end
+
+  def neighbor_comparison(ship, ship_coordinates)
+    horizontal_compare = ship_paired_coordinates(ship, ship_coordinates) - row_neighbors
+    vertical_compare = ship_paired_coordinates(ship, ship_coordinates) - column_neighbors
+    horizontal_compare == [] || vertical_compare == []
+  end
+
+
 
     # paired_horizontal_neighbors = []
     # coordinate_list.each_cons(2) do |coord|
