@@ -33,6 +33,7 @@ class Board
   def valid_placement?(ship, ship_coordinates)
     # @cells.keys.include?(ship_coordinates)
     # coordinate_list = @cells.keys
+  end
 
 
   def columns
@@ -76,6 +77,5 @@ class Board
     # (ship_coord_letters.flatten.uniq.count == 1 || ship_coord_numbers.flatten.uniq.count == 1) &&
     #   ship_paired_coordinates - paired_horizontal_neighbors == []
       #binding.pry
-  end
 
 end
