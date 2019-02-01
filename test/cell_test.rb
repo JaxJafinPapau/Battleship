@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cell'
 require './lib/ship'
-#require 'pry';  binding.pry
+require 'pry'
 
 class CellTest < Minitest::Test
 
@@ -31,14 +31,14 @@ class CellTest < Minitest::Test
     assert_equal @cruiser, @cell.ship
   end
 
-  def test_did_it_hit
+  def test_that_not_fired_upon_when_initialized
 
-    assert_equal false, @cell.fired_upon
+    assert_equal false, @cell.fired_upon?
   end
 
   def test_fire_on_ship
     @cell.fire_upon
-    assert_nil @ship, @cell.fire_upon
+    assert_equal true, @cell.fired_upon?
   end
 
   def test_did_health_decrease
@@ -53,8 +53,45 @@ class CellTest < Minitest::Test
     assert_equal ".", cell_1.render
   end
 
-  #def test_fire_upon
-    #cell_1 = Cell.new("B4")
+  def test_fire_upon_opponent
+    cell_1 = Cell.new("B4")
+    cell_1.fire_upon
 
-    #assert_equal , 
+    assert_equal true, cell_1.fired_upon?
+  end
+
+  def test_optional_arg
+    cell_1 = Cell.new("B4")
+    cell_2 = Cell.new("C3")
+    cell_2.place_ship(@cruiser)
+
+    assert_equal "S", cell_2.render(true)
+  end
+
+  def test_did_you_hit
+    cell_1 = Cell.new("B4")
+    cell_2 = Cell.new("C3")
+    cell_2.place_ship(@cruiser)
+    cell_2.fire_upon
+
+    assert_equal "H", cell_2.render
+  end
+
+  def test_did_you_miss
+    cell_1 = Cell.new("B4")
+    cell_2 = Cell.new("C3")
+    cell_2.fire_upon
+
+    assert_equal "M", cell_2.render
+  end
+
+  def test_did_ship_sink
+    cell_2 = Cell.new("C3")
+    cell_2.place_ship(@cruiser)
+    @cruiser.hit
+    @cruiser.hit
+    @cruiser.hit
+
+    assert_equal "X", cell_2.render
+  end
 end
