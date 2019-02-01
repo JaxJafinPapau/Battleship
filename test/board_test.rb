@@ -61,13 +61,14 @@ class BoardTest < Minitest::Test
   end
 
   def test_does_board_validate_horizontal_placement
-    skip
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "B1"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "B3"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
   end
 
   def test_does_board_validate_vertical_placement
-    skip
-    assert_equal true, @board.valid_placement?(@cruiser, ["B1", "C1", "D1"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
   end
 end
