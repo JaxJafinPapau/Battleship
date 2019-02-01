@@ -47,6 +47,14 @@ class Board
     end
   end
 
+  def column_neighbors
+    column_neighbors = []
+    columns.each_cons(2) do |coord|
+      column_neighbors << coord
+    end
+    return column_neighbors
+  end
+
     # paired_horizontal_neighbors = []
     # coordinate_list.each_cons(2) do |coord|
     #   paired_horizontal_neighbors << coord
