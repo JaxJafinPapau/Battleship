@@ -44,6 +44,11 @@ class BoardTest < Minitest::Test
     assert_equal row_neighbors, @board.row_neighbors
   end
 
+  def test_does_ship_paired_coordinates_give_proper_pairs?
+    assert_equal [["A1", "A2"], ["A2", "A3"]],
+    @board.ship_paired_coordinates
+  end
+
   def test_does_board_validate_horizontal_placement
     skip
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
