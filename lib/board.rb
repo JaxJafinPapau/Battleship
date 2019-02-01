@@ -56,6 +56,14 @@ class Board
     return column_neighbors
   end
 
+  def row_neighbors
+    row_neighbors = []
+    @cells.keys.each_cons(2) do |coord|
+      row_neighbors << coord
+    end
+    return row_neighbors
+  end
+
     # paired_horizontal_neighbors = []
     # coordinate_list.each_cons(2) do |coord|
     #   paired_horizontal_neighbors << coord
