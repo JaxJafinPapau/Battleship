@@ -30,4 +30,44 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  def valid_placement?(ship, ship_coordinates)
+    # @cells.keys.include?(ship_coordinates)
+    # coordinate_list = @cells.keys
+
+
+  def columns
+    columns = @cells.keys.sort do |coord_a, coord_b|
+      if coord_a[1] > coord_b[1]
+        1
+      elsif coord_a[1] < coord_b[1]
+        -1
+      else
+        coord_a <=> coord_b
+      end
+    end
+  end
+
+    # paired_horizontal_neighbors = []
+    # coordinate_list.each_cons(2) do |coord|
+    #   paired_horizontal_neighbors << coord
+    # end
+    #
+    # ship_paired_coordinates = []
+    # ship_coordinates.each_cons(2) do |coord|
+    #   ship_paired_coordinates << coord
+    # end
+    #
+    # ship_coord_letters = ship_coordinates.map do |coord|
+    #   coord[0].split('')
+    # end
+    #
+    # ship_coord_numbers = ship_coordinates.map do |coord|
+    #   coord[1].split('')
+    # end
+    #
+    # (ship_coord_letters.flatten.uniq.count == 1 || ship_coord_numbers.flatten.uniq.count == 1) &&
+    #   ship_paired_coordinates - paired_horizontal_neighbors == []
+      #binding.pry
+  end
+
 end
