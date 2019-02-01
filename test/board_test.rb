@@ -60,13 +60,20 @@ class BoardTest < Minitest::Test
     assert_equal ["1"], @board.ship_coordinate_numbers(@submarine, ["A1", "B1", "C1"])
   end
 
-  def test_does_board_validate_horizontal_placement
+  def test_neighbor_comparison_gives_expected_bool
+    assert_equal true, @board.neighbor_comparison(@cruiser, ["A1", "A2", "A3"])
+    assert_equal true, @board.neighbor_comparison(@submarine, ["A1", "B1", "C1"])
+    assert_equal false, @board.neighbor_comparison(@cruiser, ["A1", "A2", "A4"])
+    assert_equal false, @board.neighbor_comparison(@submarine, ["A1", "B1", "D1"])
+  end
+
+  def test_board_validates_horizontal_placement
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "B3"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
   end
 
-  def test_does_board_validate_vertical_placement
+  def test_board_validates_vertical_placement
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
