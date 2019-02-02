@@ -80,4 +80,24 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C2"])
     assert_equal false, @board.valid_placement?(@submarine, ["C3", "D3", "E3"])
   end
+
+  def test_board_can_place_ships
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    cell_1 = @board.cells["A1"]
+    cell_2 = @board.cells["A2"]
+    cell_3 = @board.cells["A3"]
+    cell_4 = @board.cells["B1"]
+    # cells.each(["A1", "A2", "A3"]) do |cell|
+    #   cell[1].empty?
+    # cruiser_cells = {
+    #   "A1" => Cell.new("A1"),
+    #   "A2" => Cell.new("A2"),
+    #   "A3" => Cell.new("A3")
+    #   }
+
+    assert_equal false, cell_1.empty?
+    assert_equal false, cell_2.empty?
+    assert_equal false, cell_3.empty?
+    assert_equal true, cell_4.empty?
+  end
 end
