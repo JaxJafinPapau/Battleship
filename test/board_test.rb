@@ -113,4 +113,8 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.occupied_coordinate_check?(@submarine, ["A1", "B1"])
     assert_equal true, @board.occupied_coordinate_check?(@submarine, ["D3", "D4"])
   end
+
+  def test_board_renders_blank_board
+    assert_equal "", @board.render()
+  end
 end

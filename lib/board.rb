@@ -107,4 +107,8 @@ class Board
     proposed_coordinates = ship_coordinates + @occupied_coordinates.flatten
     proposed_coordinates.count == proposed_coordinates.uniq.count
   end
+
+  def render
+
+  end
 end
