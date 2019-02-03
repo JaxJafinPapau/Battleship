@@ -9,7 +9,7 @@ class BoardTest < Minitest::Test
 
   def setup
     @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 3)
+    @submarine = Ship.new("ine", 2)
     @board = Board.new
   end
 
@@ -52,19 +52,19 @@ class BoardTest < Minitest::Test
 
   def test_does_ship_coordinate_letters_give_correct_letters
     assert_equal ["A"], @board.ship_coordinate_letters(@cruiser, ["A1", "A2", "A3"])
-    assert_equal ["A", "B", "C"], @board.ship_coordinate_letters(@submarine, ["A1", "B1", "C1"])
+    assert_equal ["A", "B"], @board.ship_coordinate_letters(@submarine, ["A1", "B1"])
   end
 
   def test_ship_coordinate_numbers_gives_correct_numbers
     assert_equal ["1", "2", "3"], @board.ship_coordinate_numbers(@cruiser, ["A1", "A2", "A3"])
-    assert_equal ["1"], @board.ship_coordinate_numbers(@submarine, ["A1", "B1", "C1"])
+    assert_equal ["1"], @board.ship_coordinate_numbers(@submarine, ["A1", "B1"])
   end
 
   def test_neighbor_comparison_gives_expected_bool
     assert_equal true, @board.neighbor_comparison(@cruiser, ["A1", "A2", "A3"])
-    assert_equal true, @board.neighbor_comparison(@submarine, ["A1", "B1", "C1"])
+    assert_equal true, @board.neighbor_comparison(@submarine, ["A1", "B1"])
     assert_equal false, @board.neighbor_comparison(@cruiser, ["A1", "A2", "A4"])
-    assert_equal false, @board.neighbor_comparison(@submarine, ["A1", "B1", "D1"])
+    assert_equal false, @board.neighbor_comparison(@submarine, ["A1", "B2"])
   end
 
   def test_board_validates_horizontal_placement
@@ -72,13 +72,15 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "B3"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A4", "A5"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A4", "B1"])
   end
 
   def test_board_validates_vertical_placement
-    assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
-    assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1", "C1"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1", "C2"])
-    assert_equal false, @board.valid_placement?(@submarine, ["C3", "D3", "E3"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "B1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["D3", "E3"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A4", "B1"])
   end
 
   def test_board_can_place_ships
@@ -92,5 +94,23 @@ class BoardTest < Minitest::Test
     assert_equal false, cell_2.empty?
     assert_equal false, cell_3.empty?
     assert_equal true, cell_4.empty?
+  end
+
+  def test_ships_cannot_overlap
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
+  end
+
+  def test_occupied_coordinates_receives_coordinates
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal [["A1", "A2", "A3"]], @board.occupied_coordinates
+  end
+
+  def test_occupied_coordinate_check_gives_expected_bool
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal false, @board.occupied_coordinate_check?(@submarine, ["A1", "B1"])
+    assert_equal true, @board.occupied_coordinate_check?(@submarine, ["D3", "D4"])
   end
 end

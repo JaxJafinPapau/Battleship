@@ -3,7 +3,8 @@ require './lib/cell.rb'
 require 'pry'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :occupied_coordinates
 
   def initialize
     @cells = {
@@ -24,21 +25,19 @@ class Board
     "D3" => Cell.new("D3"),
     "D4" => Cell.new("D4")
   }
+  @occupied_coordinates = []
   end
-
-  # def cells
-  #
-  # end
 
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
 
   def valid_placement?(ship, ship_coordinates)
-    (ship_coordinate_letters(ship, ship_coordinates).count == 1 &&
+    ((ship_coordinate_letters(ship, ship_coordinates).count == 1 &&
       neighbor_comparison(ship, ship_coordinates)) ||
     (ship_coordinate_numbers(ship, ship_coordinates).count == 1 &&
-      neighbor_comparison(ship, ship_coordinates))
+      neighbor_comparison(ship, ship_coordinates))) &&
+      occupied_coordinate_check?(ship, ship_coordinates) == true
   end
 
   def columns
@@ -101,5 +100,11 @@ class Board
     ship_coordinates.each do |coord|
       @cells[coord].place_ship(ship)
     end
+    @occupied_coordinates << ship_coordinates
+  end
+
+  def occupied_coordinate_check?(ship, ship_coordinates)
+    proposed_coordinates = ship_coordinates + @occupied_coordinates.flatten
+    proposed_coordinates.count == proposed_coordinates.uniq.count
   end
 end
