@@ -6,11 +6,7 @@ class Board
   attr_reader :cells
 
   def initialize
-    @cells = cells
-  end
-
-  def cells
-    {
+    @cells = {
     "A1" => Cell.new("A1"),
     "A2" => Cell.new("A2"),
     "A3" => Cell.new("A3"),
@@ -28,10 +24,14 @@ class Board
     "D3" => Cell.new("D3"),
     "D4" => Cell.new("D4")
   }
-end
+  end
+
+  # def cells
+  #
+  # end
 
   def valid_coordinate?(coordinate)
-    cells.keys.include?(coordinate)
+    @cells.keys.include?(coordinate)
   end
 
   def valid_placement?(ship, ship_coordinates)
@@ -42,7 +42,7 @@ end
   end
 
   def columns
-    columns = cells.keys.sort do |coord_a, coord_b|
+    columns = @cells.keys.sort do |coord_a, coord_b|
       if coord_a[1] > coord_b[1]
         1
       elsif coord_a[1] < coord_b[1]
@@ -63,7 +63,7 @@ end
 
   def row_neighbors
     row_neighbors = []
-    cells.keys.each_cons(2) do |coord|
+    @cells.keys.each_cons(2) do |coord|
       row_neighbors << coord
     end
     return row_neighbors
@@ -97,18 +97,9 @@ end
     horizontal_compare == [] || vertical_compare == []
   end
 
-  # def place(ship, ship_coordinates)
-  #   cells.each do |cell|
-  #     cell[1].place_ship(ship)
-  #   end
-  #   #binding.pry
-  # end
   def place(ship, ship_coordinates)
     ship_coordinates.each do |coord|
-      cells[coord].place_ship(ship)
+      @cells[coord].place_ship(ship)
     end
-    #occupied_spaces << ship_coordinates
-
   end
-  binding.pry
 end

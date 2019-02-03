@@ -87,13 +87,6 @@ class BoardTest < Minitest::Test
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
     cell_4 = @board.cells["B1"]
-    # cells.each(["A1", "A2", "A3"]) do |cell|
-    #   cell[1].empty?
-    # cruiser_cells = {
-    #   "A1" => Cell.new("A1"),
-    #   "A2" => Cell.new("A2"),
-    #   "A3" => Cell.new("A3")
-    #   }
 
     assert_equal false, cell_1.empty?
     assert_equal false, cell_2.empty?
