@@ -117,4 +117,10 @@ class BoardTest < Minitest::Test
   def test_board_renders_blank_board
     assert_equal "", @board.render()
   end
+
+  def test_board_renders_ships
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal "", @board.render()
+  end
 end

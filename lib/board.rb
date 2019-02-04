@@ -31,7 +31,7 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
-
+#explain why, not how I did what I did
   def valid_placement?(ship, ship_coordinates)
     ((ship_coordinate_letters(ship, ship_coordinates).count == 1 &&
       neighbor_comparison(ship, ship_coordinates)) ||
@@ -108,7 +108,7 @@ class Board
     proposed_coordinates.count == proposed_coordinates.uniq.count
   end
 
-  def render
+  def render()
 
   end
 end
