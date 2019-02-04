@@ -123,5 +123,4 @@ class Board
       "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
     end
   end
-  #keep code out of the runner file need to test/validate ship coordinates contrains to ship length
 end

@@ -10,6 +10,7 @@ class BoardTest < Minitest::Test
   def setup
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @skiff = Ship.new("Skiff", 1)
     @board = Board.new
   end
 
@@ -124,17 +125,18 @@ class BoardTest < Minitest::Test
     assert_equal sample_board, @board.render
   end
 
-  def test_board_renders_human_player_ships
+  def test_board_renders_ships_with_different_conditions
     @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["B4", "C4"])
+    @board.place(@skiff, ["D1"])
+    @board.cells["B4"].fire_upon
+    @board.cells["D1"].fire_upon
     sample_board = "  1 2 3 4 \n" +
                    "A S S S . \n" +
-                   "B . . . . \n" +
-                   "C . . . . \n" +
-                   "D . . . . \n"
+                   "B . . . H \n" +
+                   "C . . . S \n" +
+                   "D X . . . \n"
+
     assert_equal sample_board, @board.render(true)
-  end
-
-  def test_board_does_not_render_computer_ships
-
   end
 end
