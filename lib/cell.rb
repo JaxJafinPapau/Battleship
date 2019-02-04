@@ -40,8 +40,8 @@ attr_reader :coordinate, :ship
       return "S"
     elsif !empty? && fired_upon? && @ship.sunk? == false
       return "H"
-    else @ship.health == 0
+    elsif !empty? && fired_upon? && @ship.sunk? == true
       return "X"
-      end
     end
   end
+end
