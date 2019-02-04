@@ -121,12 +121,20 @@ class BoardTest < Minitest::Test
                    "C . . . . \n" +
                    "D . . . . \n"
 
-    assert_equal sample_board, @board.render()
+    assert_equal sample_board, @board.render
   end
 
   def test_board_renders_human_player_ships
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    @board.place(@submarine, ["C2", "C3"])
-    assert_equal "", @board.render()
+    sample_board = "  1 2 3 4 \n" +
+                   "A S S S . \n" +
+                   "B . . . . \n" +
+                   "C . . . . \n" +
+                   "D . . . . \n"
+    assert_equal sample_board, @board.render(true)
+  end
+
+  def test_board_does_not_render_computer_ships
+
   end
 end
