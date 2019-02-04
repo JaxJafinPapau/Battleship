@@ -9,7 +9,7 @@ class BoardTest < Minitest::Test
 
   def setup
     @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("ine", 2)
+    @submarine = Ship.new("Submarine", 2)
     @board = Board.new
   end
 
@@ -115,12 +115,18 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_renders_blank_board
-    assert_equal "", @board.render()
+    sample_board = "  1 2 3 4 \n" +
+                   "A . . . . \n" +
+                   "B . . . . \n" +
+                   "C . . . . \n" +
+                   "D . . . . \n"
+
+    assert_equal sample_board, @board.render()
   end
 
-  def test_board_renders_ships
+  def test_board_renders_human_player_ships
     @board.place(@cruiser, ["A1", "A2", "A3"])
-
+    @board.place(@submarine, ["C2", "C3"])
     assert_equal "", @board.render()
   end
 end
