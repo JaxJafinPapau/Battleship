@@ -36,6 +36,8 @@ attr_reader :coordinate, :ship
       return "M"
     elsif empty? && !fired_upon?
       return "."
+    elsif !fired_upon? && arg == false
+      return "."
     elsif !empty? && !fired_upon? && arg == true
       return "S"
     elsif !empty? && fired_upon? && @ship.sunk? == false
