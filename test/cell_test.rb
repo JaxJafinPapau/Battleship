@@ -2,11 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cell'
 require './lib/ship'
-<<<<<<< HEAD
-#require 'pry';  binding.pry
-=======
 require 'pry'
->>>>>>> 61fec93f0a8c86edb4f7fb25a5fcea191d507e2d
 
 class CellTest < Minitest::Test
 
@@ -34,8 +30,6 @@ class CellTest < Minitest::Test
     @cell.place_ship(@cruiser)
     assert_equal @cruiser, @cell.ship
   end
-<<<<<<< HEAD
-=======
 
   def test_that_not_fired_upon_when_initialized
 
@@ -98,7 +92,7 @@ class CellTest < Minitest::Test
     @cruiser.hit
     @cruiser.hit
     cell_2.fire_upon
+    
     assert_equal "X", cell_2.render
   end
->>>>>>> 61fec93f0a8c86edb4f7fb25a5fcea191d507e2d
 end
