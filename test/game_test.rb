@@ -1,15 +1,18 @@
-require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'pry'
 #require './lib/cell'
 #require './lib/ship'
 #require './lib/board'
 require './lib/game'
 
-class Game < Minitest::Test
+class GameTest < Minitest::Test
 
   def setup
-    @game = Game.new(welcome)
+    @game = Game.new
+    #@cell = Cell.new("B4")
+    #@ship = Ship.new("skiff", 1)
+    #@board = Board.new
   end
 
   def test_it_exists
@@ -17,22 +20,25 @@ class Game < Minitest::Test
     assert_instance_of Game, @game
   end
 
-  def test_it_has_a_menu
-    skip
+  def test_main_menu
 
-    assert_equal "Enter p to play. Enter q to quit.", @game.main_menu
+    assert_equal "Welcome to BATTLESHIP. Enter p to play. Enter q to quit.", @game.main_menu
   end
 
-#  def test_player_input
-#
-#    assert_equal , @game.play_or_quit
-#  end
+  def test_player_wants_to_play
+    answer = "p"
 
-  def test_computer_place_ships
-    skip
+    assert_equal "p", @game.play_or_quit(true)
   end
 
-  def test_player_place_ships
-    skip
+  def test_player_wants_to_quit
+    answer = "q"
+
+    assert_equal exit, @game.play_or_quit
   end
+
+  #def test_end_game
+
+  #  assert_equal , @game.end_game
+  #end
 end
