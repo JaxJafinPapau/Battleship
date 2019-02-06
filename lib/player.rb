@@ -5,6 +5,9 @@ require './lib/ship'
 
 class Player
 
+  def initialize
+    @argument = argument
+  end
 
 
 end

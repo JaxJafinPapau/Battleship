@@ -6,9 +6,19 @@ require './lib/cell'
 require './lib/ship'
 require 'pry'
 
-class PlayerTest
+class PlayerTest < Minitest::Test
 
+  def setup
+    @player = Player.new
+  end
 
+  def test_player_exists
+    assert_instance_of Player, @player
+  end
+
+  def test_player_
+    
+  end
 
 
 

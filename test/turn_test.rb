@@ -64,8 +64,19 @@ class TurnTest < Minitest::Test
     expect_hit = @turn.give_feedback("D1")
     @turn.take_shot("B1")
     expect_miss = @turn.give_feedback("B1")
+    @turn.take_shot("D2")
+    @turn.take_shot("D3")
+    expect_sink = @turn.give_feedback("D3")
 
     assert_equal "Hit!", expect_hit
     assert_equal "Miss!", expect_miss
+    assert_equal "You sunk my Cruiser!", expect_sink
+  end
+
+  def test_computer_takes_shot
+    @turn.own_board.place(@cruiser, ["A1", "A2", "A3"])
+    test_shot = @turn.computer_takes_shot
+
+    assert_equal @turn.comp_taken_shots[-1], test_shot
   end
 end
