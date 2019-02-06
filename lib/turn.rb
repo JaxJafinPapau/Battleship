@@ -1,46 +1,6 @@
 class Turn
-  attr_reader :own_board,
-              :opponent_board,
-              :comp_taken_shots
+  attr_reader
 
-  def initialize
-
-    @opponent_board = Board.new
-    @comp_taken_shots = []
-  end
-
-  def display_own_board
-    @own_board.render(true)
-  end
-
-  def display_opponent_board
-    @opponent_board.render
-  end
-
-  def take_shot(coordinate)
-    @opponent_board.cells[coordinate].fire_upon
-    @shots_take << coordinate
-  end
-
-  def validate_shot(coordinate)
-    if @user_shots_taken.include?(coordinate)
-      puts "Sorry, you've already shot there!"
-  	return false
-    elsif @turn.opponent_board.validate_coordinate?(coordinate) == false
-      puts "Sorry, that's not a valid coordinate."
-  	return false
-    else
-      true
-    end
-  end
-
-  def computer_takes_shot
-    possible_shots = @own_board.cells.keys - @comp_taken_shots
-    comp_shot = possible_shots.sample
-    @comp_taken_shots << comp_shot
-    @own_board.cells[comp_shot].fire_upon
-    return comp_shot
-  end
 
   def give_feedback(coordinate)
     if @opponent_board.cells[coordinate].render == "M"
@@ -51,4 +11,41 @@ class Turn
       p "You sunk my #{@opponent_board.cells[coordinate].ship.name}!"
     end
   end
+
+  def check_end_game(player_board, computer_board)
+    if @player.own_board.render.include?("S") == false
+      puts "Game over, I win! Better luck next time."
+    elsif @computer.own_board.render(true).include?("S") == false
+      puts "Game over, you win! I'll have to guess a little smarter next time."
+    else
+      nil
+    end
+  end
 end
+  # def initialize
+  # end
+
+  # def display_player_board
+  #   @own_board.render(true)
+  # end
+  #
+  # def display_opponent_board
+  #   @opponent_board.render
+  # end
+  #
+  # def take_shot(coordinate)
+  #   @opponent_board.cells[coordinate].fire_upon
+  #   @shots_take << coordinate
+  # end
+  #
+  # def validate_shot(coordinate)
+  #   if @user_shots_taken.include?(coordinate)
+  #     puts "Sorry, you've already shot there!"
+  # 	return false
+  #   elsif @turn.opponent_board.validate_coordinate?(coordinate) == false
+  #     puts "Sorry, that's not a valid coordinate."
+  # 	return false
+  #   else
+  #     true
+  #   end
+  # end

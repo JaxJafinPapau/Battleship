@@ -21,6 +21,7 @@ class Computer
   end
 
   def display_computer_board
+    p "=============COMPUTER BOARD============="
     @own_board.render
   end
 
