@@ -1,5 +1,5 @@
-require './lib/ship.rb'
-require './lib/cell.rb'
+require './ship.rb'
+require './cell.rb'
 require 'pry'
 
 class Board
@@ -34,9 +34,9 @@ class Board
 #explain why, not how I did what I did
   def valid_placement?(ship, ship_coordinates)
     ((ship_coordinate_letters(ship, ship_coordinates).count == 1 &&
-      neighbor_comparison(ship, ship_coordinates)) ||
+      neighbor_comparison?(ship, ship_coordinates)) ||
     (ship_coordinate_numbers(ship, ship_coordinates).count == 1 &&
-      neighbor_comparison(ship, ship_coordinates))) &&
+      neighbor_comparison?(ship, ship_coordinates))) &&
       occupied_coordinate_check?(ship, ship_coordinates) == true
   end
 
@@ -90,7 +90,7 @@ class Board
     ship_coordinate_numbers.flatten.uniq
   end
 
-  def neighbor_comparison(ship, ship_coordinates)
+  def neighbor_comparison?(ship, ship_coordinates)
     horizontal_compare = ship_paired_coordinates(ship, ship_coordinates) - row_neighbors
     vertical_compare = ship_paired_coordinates(ship, ship_coordinates) - column_neighbors
     horizontal_compare == [] || vertical_compare == []
@@ -110,17 +110,20 @@ class Board
 
   def render(arg = false)
     if arg == false
-      "  1 2 3 4 \n" +
-      "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
-      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
-      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
-      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+      board = "  1 2 3 4\n" +
+      "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}\n" +
+      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render}\n" +
+      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}\n" +
+      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}\n"
+      puts board
     else arg == true
-      "  1 2 3 4 \n" +
-      "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \n" +
-      "B #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)} \n" +
-      "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \n" +
-      "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
+      board = "  1 2 3 4\n" +
+      "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)}\n" +
+      "B #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)}\n" +
+      "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)}\n" +
+      "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)}\n"
+      puts board
     end
+    board
   end
 end
